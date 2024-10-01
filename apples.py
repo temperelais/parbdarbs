@@ -4,7 +4,7 @@ class Harvest:
         self.name = name
         self.howMuch = howMuch
 
-    def ateSome(self, howManyEaten)
+    def ateSome(self, howManyEaten):
         self.howMuch-=howManyEaten
 
 class Apple(Harvest):
