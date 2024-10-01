@@ -17,14 +17,23 @@ options = {'padx':5,'pady': 5}
 
 # vegOrFruit label
 vegOrFruit_label = ttk.Label(frame, text="Dārzenis vai Auglis?")
-vegOrFruit_label.grid(column=0, row=1, sticky="e", **options)
+vegOrFruit_label.grid(column=2, row=2, sticky="e", **options)
 
 # vegOrFruit Radiobox
-v = StringVar(root, "1")
-radValues = {"Produkts ir dārzenis" : "vegetable",
-             "Produkts ir auglis " : "fruit"}
-for (text, value) in radValues.items():
-    Radiobutton(root, text=text, variable=v, value = value).pack(fill = X, ipady= 5)
+
+var = tk.StringVar()
+def resultOfRadBox():
+    print(var.get())
+
+theRadButtons =(tk.Radiobutton(root, text="Produkts ir auglis", variable=var, value="fruit", command=resultOfRadBox),
+                tk.Radiobutton(root, text="Produkts ir dārzenis", variable=var, value="vegetable", command=resultOfRadBox))
+count =1
+for i in theRadButtons:
+    i.grid(column=1,row=count,**options)
+    count+=1
+
+# 
+
 
 
 
