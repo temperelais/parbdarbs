@@ -9,7 +9,7 @@ class Harvest:
 
 class Apple(Harvest):
     def __init__(self, name, howMuch,appleBreed):
-        super().__init__("fruit", name, howMuch,appleBreed)
+        super().__init__("fruit", name, howMuch)
         self.appleBreed = appleBreed
 
         

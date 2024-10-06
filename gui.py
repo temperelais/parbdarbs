@@ -12,7 +12,7 @@ root.geometry("800x800")
 
 # Create the frame
 frame = ttk.Frame(root)
-frame.pack()
+# frame.pack()
 
 # Field options
 options = {'padx': 5, 'pady': 5}
@@ -60,12 +60,43 @@ breed = tk.StringVar()
 breedEntry = ttk.Entry(frame, textvariable=breed)
 breedEntry.grid(column=3, row=1, **options)
 
+# listbox update
+def changeListbox():
+    listbox.delete(0,END)
+    for Harvest in allHarvests:
+        listbox.insert("end","{},{},{}".format(Harvest.name,Harvest.howMuch,Harvest.VegOrFruit))
+
 # create Object button
-def createHarvestButton():
+def createHarvestClicked():
     daudzums = howMuch.get()
     whatType = VegOrFruit.get()
     whatName = name.get()
+    whatBreed = breed.get()
+    if whatBreed != "":
+        allHarvests.append(Apple(whatName,daudzums,whatBreed))
+    else:
+        allHarvests.append(Harvest(whatType, whatName, daudzums))
+    
+    changeListbox()
 
+harvestButton = ttk.Button(frame, text="Izveidot ražu")
+harvestButton.grid(column=4, row=0, sticky="E", **options)
+harvestButton.configure(command=createHarvestClicked)
+
+listOfHarvests = tk.Variable(value=tuple(allHarvests))
+
+listbox = tk.Listbox(
+    root,
+    listvariable=listOfHarvests,
+    height=6,
+    selectmode=tk.EXTENDED
+)
+
+listbox.grid(row=4, columnspan=3, **options)
+
+
+# add padding to the frame and show it
+frame.grid(padx=10, pady=10)
 
 # Start the loop
 root.mainloop()
