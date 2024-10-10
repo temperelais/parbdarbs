@@ -65,6 +65,12 @@ def changeListbox():
     listbox.delete(0,END)
     for Harvest in allHarvests:
         listbox.insert("end","{},{},{}".format(Harvest.name,Harvest.howMuch,Harvest.VegOrFruit))
+    for i in allHarvests:
+        if type(i) is Harvest:
+            listbox.insert(("end","{},{},{}".format(Harvest.name, Harvest.howMuch, Harvest.VegOrFruit),"nav ābols"))
+        if type(i) is Apple:
+            listbox.insert(("end","{},{},{}".format(Apple.name, Apple.howMuch, Apple.appleBreed),"ābols"))
+
 
 # create Object button
 def createHarvestClicked():
@@ -97,6 +103,30 @@ listbox.grid(row=4, columnspan=3, **options)
 
 # add padding to the frame and show it
 frame.grid(padx=10, pady=10)
+
+def on_select(event):
+    selected_indices = listbox.curselection()
+    if len(selected_indices) == 2:
+        selected_items = [listbox.get(index) for index in selected_indices]
+        global merge_button
+        merge_button["state"] = "normal"  # Enable the merge button
+    
+def on_merge():
+    selected_indices = listbox.curselection()
+    if len(selected_indices) == 2:
+        selected_items = [listbox.get(index) for index in selected_indices]
+        new_item = " ".join(selected_items)
+        listbox.delete(*selected_indices)
+        listbox.insert(("ievārījums"))
+        merge_button["state"] = "disabled"  # Disable the merge button
+
+listbox.bind("<<ListboxSelect>>", on_select)
+
+# Create the merge button
+merge_button = tk.Button(root, text="savienot divus itemus listboksā", command=on_merge, state="disabled")
+merge_button.grid()
+    
+    
 
 # Start the loop
 root.mainloop()
